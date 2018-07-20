@@ -51,4 +51,15 @@ public class CheckoutServiceImplTest {
         assertEquals(BigDecimal.valueOf(260), checkoutService.calculatePrice());
     }
 
+    @Test
+    public void testCalculateTotalPriceReturns0WhenNonSKuWereCheckedOut() {
+        skuStorage.add(A);
+        skuStorage.add(B);
+        skuStorage.add(C);
+        skuStorage.add(D);
+        PriceCalculator priceCalculator = new PriceCalculator(skuStorage);
+        CheckoutServiceImpl checkoutService = new CheckoutServiceImpl(basketStorage, priceCalculator);
+        assertEquals(BigDecimal.ZERO, checkoutService.calculatePrice());
+    }
+
 }
